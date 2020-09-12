@@ -1,40 +1,43 @@
 package problem0232
 
-import "container/list"
-
-// MyQueue 是利用 list 实现的队列
 type MyQueue struct {
-	list *list.List
+	input []int
+	output []int
 }
 
-// Constructor Initialize your data structure here.
+/** Initialize your data structure here. */
 func Constructor() MyQueue {
-	return MyQueue{
-		list: list.New(),
+	return MyQueue{}
+}
+
+/** Push element x to the back of queue. */
+func (this *MyQueue) Push(x int)  {
+	this.input = append(this.input, x)
+}
+
+/** Removes the element from in front of queue and returns that element. */
+func (this *MyQueue) Pop() int {
+	this.Peek()
+	e := this.output[len(this.output) - 1]
+	this.output = this.output[:len(this.output) - 1]
+	return e
+}
+
+/** Get the front element. */
+func (this *MyQueue) Peek() int {
+	if len(this.output) == 0 {
+		for len(this.input) > 0 {
+			this.output = append(this.output, this.input[len(this.input) - 1])
+			this.input = this.input[:len(this.input) - 1]
+		}
 	}
+	return this.output[len(this.output) - 1]
 }
 
-// Push element x to the back of queue.
-func (q *MyQueue) Push(x int) {
-	q.list.PushBack(x)
-}
-
-// Pop Removes the element from in front of queue and returns that element.
-func (q *MyQueue) Pop() int {
-	front := q.list.Front()
-	res := front.Value.(int)
-	q.list.Remove(front)
-	return res
-}
-
-// Peek Get the front element.
-func (q *MyQueue) Peek() int {
-	front := q.list.Front()
-	res := front.Value.(int)
-	return res
-}
-
-// Empty returns whether the queue is empty.
-func (q *MyQueue) Empty() bool {
-	return q.list.Len() == 0
+/** Returns whether the queue is empty. */
+func (this *MyQueue) Empty() bool {
+	if len(this.input) == 0 && len(this.output) == 0 {
+		return true
+	}
+	return  false
 }
