@@ -14,3 +14,8 @@ func isPowerOfTwo(n int) bool {
 
 	return true
 }
+
+// 解法一 二进制位操作法
+func isPowerOfTwo1(num int) bool {
+	return (num > 0 && ((num & (num - 1)) == 0))
+}
