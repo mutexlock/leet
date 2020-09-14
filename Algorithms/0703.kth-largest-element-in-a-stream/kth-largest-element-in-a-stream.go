@@ -9,7 +9,7 @@ import (
 // param_1 := obj.Add(val);
 type KthLargest struct {
 	k    int
-	heap intHeap
+	minHeap intHeap
 }
 
 // Constructor 创建 KthLargest
@@ -23,19 +23,19 @@ func Constructor(k int, nums []int) KthLargest {
 
 	return KthLargest{
 		k:    k,
-		heap: h,
+		minHeap: h,
 	}
 }
 
 // Add 负责添加元素
 func (kl *KthLargest) Add(val int) int {
-	heap.Push(&kl.heap, val)
+	heap.Push(&kl.minHeap, val)
 
-	if len(kl.heap) > kl.k {
-		heap.Pop(&kl.heap)
+	if len(kl.minHeap) > kl.k {
+		heap.Pop(&kl.minHeap)
 	}
 
-	return kl.heap[0]
+	return kl.minHeap[0]
 }
 
 type intHeap []int
