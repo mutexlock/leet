@@ -70,3 +70,73 @@ func dfs(r int, cols, d1, d2 []bool, board []string, res *[][]string) {
 		}
 	}
 }
+
+//是否可以在 board[row][col] 放置皇后
+func isValid(board [][]byte,row,col int) bool {
+	//同列是否有
+	for i:=0; i< row; i++{
+		if board[i][col] == 'Q'{
+			return false
+		}
+	}
+	//右上方
+	for i,j :=row-1,col+1; i>=0 && j<len(board);{
+		if board[i][j] == 'Q'{
+			return false
+		}
+		i--
+		j++
+	}
+	//左上方
+	for i,j :=row-1,col-1; i>=0 && j>=0;{
+		if board[i][j] == 'Q'{
+			return false
+		}
+		i--
+		j--
+	}
+	return  true
+}
+
+func solveNQueens1(n int) [][]string {
+	var board [][]byte
+	for i:=0;i<n;i++{
+		b := make([]byte,n)
+		for j:=0;j<n;j++{
+			b[j] = '.'
+		}
+		board = append(board,b)
+	}
+	var res [][]string
+	backtrack(board,0,n,&res)
+	return res
+}
+
+func backtrack(board [][]byte,row int, n int,res *[][]string)  {
+	if row == n{
+		//添加结果
+		*res = append(*res,toStrSlice(board))
+		return
+	}
+	for col :=0;col <n; col++{
+		board[row][col] = 'Q'
+		if !isValid(board,row,col){
+			continue
+		}
+		backtrack(board,row+1,n,res)
+		board[row][col] = '.'
+
+	}
+}
+
+func toStrSlice(board [][]byte) []string {
+	var res []string
+	for i:=0;i<len(board);i++{
+		var str string
+		for j:=0;j<len(board);j++ {
+			str += string(board[i][j])
+		}
+		res = append(res,str)
+	}
+	return res
+}

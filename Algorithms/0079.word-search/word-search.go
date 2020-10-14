@@ -61,7 +61,7 @@ func exist(board [][]byte, word string) bool {
 	if column == 0{
 		return false
 	}
-	for i:=0;i< len(board);i++{
+	for i:=0;i< row;i++{
 		for j:=0;j < column;j++{
 			exist := dfs(board,i,j,word,0)
 			if exist {
