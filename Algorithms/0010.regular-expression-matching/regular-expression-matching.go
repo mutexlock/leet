@@ -27,7 +27,7 @@ func isMatch(s, p string) bool {
 			if p[j] == '.' || p[j] == s[i] {
 				/* p[j] 与 s[i] 可以匹配上，所以，只要前面匹配，这里就能匹配上 */
 				dp[i+1][j+1] = dp[i][j]
-			} else if p[j] == '*' {
+			} else if p[j] == '*' &&  j >0 {
 				/* 此时，p[j] 的匹配情况与 p[j-1] 的内容相关。 */
 				if p[j-1] != s[i] && p[j-1] != '.' {
 					/**
